@@ -1,0 +1,10 @@
+pre-commit==3.6.1
+jsonargparse[omegaconf,signatures]==4.27.5
+tqdm==4.66.2
+ipywidgets==8.1.2
+mxnet==1.6.0 # MXNet 1.6.0 not working on Arm-based MacOS
+numpy==1.23.1 # Need to downgrade numpy for compatibility with mxnet
+pytorch-lightning==1.8.6
+tensorboard==2.11.*  # Before requiring glibc > 2.31
+matplotlib==3.8.3
+pandas==2.2.1
