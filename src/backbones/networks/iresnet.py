@@ -1,4 +1,12 @@
-# Taken from: https://github.com/IrvingMeng/MagFace/blob/main/models/iresnet.py
+# Reference: https://ieeexplore.ieee.org/document/9412193
+# It looks like Arcface, Magface and ElasticFace all use the same iresnet backbone.
+# Source codes can be found at:
+# 1. https://github.com/iduta/iresnet/blob/master/models/iresnet.py -> Official repository
+# 2. https://github.com/deepinsight/insightface/blob/master/recognition/arcface_torch/backbones/iresnet.py
+# 3. https://github.com/IrvingMeng/MagFace/blob/main/models/iresnet.py
+# 4. https://github.com/fdbtrs/ElasticFace/blob/main/backbones/iresnet.py
+
+# This code is taken from 3.
 
 import torch
 from torch import nn

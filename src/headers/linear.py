@@ -2,7 +2,7 @@ import torch
 
 
 class LinearHeader(torch.nn.Module):
-    """Linear Header class."""
+    """LinearHeader class."""
 
     def __init__(self, in_features, out_features):
         super().__init__()

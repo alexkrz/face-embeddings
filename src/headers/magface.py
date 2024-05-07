@@ -4,7 +4,10 @@ from .arcface import ArcFaceHeader
 
 
 class MagFaceHeader(ArcFaceHeader):
-    """MagFaceHeader class."""
+    """
+    MagFaceHeader class
+    Reference: https://ieeexplore.ieee.org/document/9578764
+    """
 
     def __init__(
         self, in_features, out_features, s=64.0, l_a=10, u_a=110, l_m=0.45, u_m=0.8, lambda_g=20

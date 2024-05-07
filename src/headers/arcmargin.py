@@ -2,8 +2,10 @@ import torch
 
 
 class ArcMarginHeader(torch.nn.Module):
-    """ArcMarginHeader class
-    (inspired by ArcMarginProduct at https://github.com/ronghuaiyang/arcface-pytorch/blob/master/models/metrics.py)
+    """
+    ArcMarginHeader class
+    Inspired by ArcMarginProduct implementation: https://github.com/ronghuaiyang/arcface-pytorch/blob/master/models/metrics.py
+    Reference: https://ieeexplore.ieee.org/document/8953658
     """
 
     def __init__(self, in_features, out_features, s=1, m1=1, m2=0, m3=0):

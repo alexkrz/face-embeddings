@@ -31,6 +31,19 @@ pip install -r requirements.txt
 pre-commit install
 ```
 
+## Model references
+
+### Backbone:
+
+- IResNet: [Improved Residual Networks for Image and Video Recognition](https://ieeexplore.ieee.org/document/9412193) (ICCV, 2021)
+
+### Headers:
+
+- SphereFaceHeader: [SphereFace: Deep Hypersphere Embedding for Face Recognition](https://ieeexplore.ieee.org/document/8100196) (CVPR, 2017)
+- CosFaceHeader: [CosFace: Large Margin Cosine Loss for Deep Face Recognition](https://ieeexplore.ieee.org/document/8578650) (CVPR, 2018)
+- ArcFaceHeader: [ArcFace: Additive Angular Margin Loss for Deep Face Recognition](https://ieeexplore.ieee.org/document/8953658) (CVPR, 2019)
+- MagFaceHeader: [MagFace: A Universal Representation for Face Recognition and Quality Assessment](https://ieeexplore.ieee.org/document/9578764) (CVPR, 2021)
+
 ## Todos
 
 - [ ] Try to load ArcFace checkpoint from official Arcface repository
