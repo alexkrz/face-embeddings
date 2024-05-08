@@ -1,0 +1,8 @@
+data_dir: ${oc.env:DATASET_DIR}/FIQA-Datasets/EvalDatasets/lfw
+output_dir: ${oc.env:DATASET_DIR}/Face-Embeddings/arcface
+file_ext: .jpg
+data_name: lfw
+model_name: arcface
+ckpt_fp: checkpoints/arcface/backbone_ms1mv3_arcface_r50_fp16.pth
+backbone: iresnet50
+gpu: 7

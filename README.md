@@ -46,5 +46,6 @@ pre-commit install
 
 ## Todos
 
-- [ ] Try to load ArcFace checkpoint from official Arcface repository
+- [x] Load ArcFace checkpoint from official Arcface repository
+- [ ] Train own ArcFace model and save it compatible to official Arface checkpoint
 - [ ] Add ElasticFace header
