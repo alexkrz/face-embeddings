@@ -31,6 +31,28 @@ pip install -r requirements.txt
 pre-commit install
 ```
 
+## Run training and inference
+
+We provide a train script and a predict script that can be executed with a matching config file.
+
+Example for training:
+
+```bash
+python train.py --config configs/train_arcface_ddp.yaml
+```
+
+Example for prediction:
+
+```bash
+python predict.py --config configs/predict_arcface.yaml
+```
+
+To generate predictions on the official model checkpoints, you first need to download the checkpoints and put them into the `checkpoints/` directory.
+
+Checkpoints for ArcFace can be downloaded at: [Arcface Repository](https://github.com/deepinsight/insightface/tree/master/recognition/arcface_torch)
+
+Checkpoints for MagFace can be downloaded at: [MagFace Repository](https://github.com/IrvingMeng/MagFace?tab=readme-ov-file)
+
 ## Model references
 
 ### Backbone:
