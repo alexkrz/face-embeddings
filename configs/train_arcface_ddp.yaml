@@ -4,7 +4,7 @@ method_name: femb_arcface
 datamodule:
   class_path: src.datamodule.MXFaceDatamodule
   init_args:
-    root_dir: ${oc.env:DATASET_DIR}/FIQA-Datasets/TrainDatasets/casia_webface
+    root_dir: ${oc.env:DATASET_DIR}/FIQA-Datasets/TrainDatasets/ms1mv3
     batch_size: 128
     num_workers: 8
 pl_module:
@@ -14,8 +14,8 @@ pl_module:
     embed_dim: 512
     pretrained_bb: false
     header: arcface
-    n_classes: 10572
-    lr: 0.001
+    n_classes: 93431
+    lr: 0.1
     weight_decay: 0.0005
 trainer:
   class_path: Trainer
@@ -27,7 +27,7 @@ trainer:
       - 6
       - 7
     strategy: ddp
-    precision: 32
+    precision: 16
     num_sanity_val_steps: 0
     max_epochs: 5
     log_every_n_steps: 50

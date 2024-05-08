@@ -56,7 +56,8 @@ class MXFaceDataset(Dataset):
         if self.custom_targets is None:
             label = header.label
             if not isinstance(label, numbers.Number):
-                label = label[0]
+                # In some cases header.label might contain an array and we are only interested in the first value
+                label = float(label[0])
             label = torch.tensor(label, dtype=torch.long)
         else:
             label = torch.tensor(self.custom_targets[index], dtype=torch.long)
