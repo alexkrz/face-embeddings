@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 
 from src.backbones.build import build_backbone
-from src.headers.arcmargin_orig import ArcFaceHeader, CosFaceHeader, SphereFaceHeader
+from src.headers.arcmargin_femb import ArcFaceHeader, CosFaceHeader, SphereFaceHeader
 
 
 class FembModule(pl.LightningModule):
