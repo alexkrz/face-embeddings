@@ -15,7 +15,7 @@ pl_module:
     pretrained_bb: false
     header: arcface
     n_classes: 93431
-    lr: 0.1
+    lr: 0.02
     weight_decay: 0.0005
 trainer:
   class_path: Trainer

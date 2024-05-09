@@ -8,7 +8,15 @@ class ArcMarginHeader(torch.nn.Module):
     Reference: https://ieeexplore.ieee.org/document/8953658
     """
 
-    def __init__(self, in_features, out_features, s=1, m1=1, m2=0, m3=0):
+    def __init__(
+        self,
+        in_features: int,
+        out_features: int,
+        s: float = 1.0,
+        m1: float = 1.0,
+        m2: float = 0.0,
+        m3: float = 0.0,
+    ):
         super().__init__()
 
         self.in_features = in_features
@@ -47,3 +55,50 @@ class ArcMarginHeader(torch.nn.Module):
         output *= self.s
 
         return output
+
+
+class ArcFaceHeader(ArcMarginHeader):
+    """
+    ArcFaceHeader class
+    Reference: https://ieeexplore.ieee.org/document/8953658 (CVPR, 2019)
+    """
+
+    def __init__(self, in_features, out_features, s=64.0, m=0.5):
+        super().__init__(in_features=in_features, out_features=out_features, s=s, m2=m)
+
+
+class CosFaceHeader(ArcMarginHeader):
+    """
+    CosFaceHeader class
+    Reference: https://ieeexplore.ieee.org/document/8578650 (CVPR, 2018)
+    """
+
+    def __init__(self, in_features, out_features, s=1, m=0.35):
+        super().__init__(in_features=in_features, out_features=out_features, s=s, m3=m)
+
+
+class SphereFaceHeader(ArcMarginHeader):
+    """
+    SphereFaceHeader class
+    Reference: https://ieeexplore.ieee.org/document/8100196 (CVPR, 2017)
+    """
+
+    def __init__(self, in_features, out_features, m=4):
+        super().__init__(in_features=in_features, out_features=out_features, s=1, m1=m)
+
+
+class LinearHeader(torch.nn.Module):
+    """LinearHeader class."""
+
+    def __init__(self, in_features, out_features):
+        super().__init__()
+
+        self.in_features = in_features
+        self.out_features = out_features
+
+        self.linear = torch.nn.Linear(
+            in_features=in_features, out_features=out_features, bias=False
+        )
+
+    def forward(self, input, label):
+        return self.linear(input)

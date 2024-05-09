@@ -1,6 +1,6 @@
 import torch
 
-from .arcface import ArcFaceHeader
+from .arcmargin_femb import ArcFaceHeader
 
 
 class MagFaceHeader(ArcFaceHeader):
