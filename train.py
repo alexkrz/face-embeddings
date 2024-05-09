@@ -1,3 +1,4 @@
+import os
 import random
 from pathlib import Path
 from typing import Callable, Iterable, Optional, Tuple
@@ -18,6 +19,16 @@ from src.datamodule import MXFaceDatamodule
 from src.pl_module import FembModule
 from src.utils import find_max_version
 
+# Setup for distributed training
+try:
+    rank = int(os.environ["RANK"])
+    local_rank = int(os.environ["LOCAL_RANK"])
+    world_size = int(os.environ["WORLD_SIZE"])
+except KeyError:
+    rank = 0
+    local_rank = 0
+    world_size = 1
+
 
 def process_parser_args(
     parser: jsonargparse.ArgumentParser,
@@ -36,9 +47,11 @@ def process_parser_args(
         version = cfg.version
     cfg["version"] = version
     version_dir = results_dir / f"version_{version}"
-    version_dir.mkdir(parents=False, exist_ok=False)
-    # Save config to version_dir
-    parser.save(cfg, version_dir / "config.yaml")
+
+    if rank == 0:
+        version_dir.mkdir(parents=False, exist_ok=False)
+        # Save config to version_dir
+        parser.save(cfg, version_dir / "config.yaml")
     # IDEA: Instead of results_dir and version one could also output results_dir with subfolder datetimefmt and version=None
     return cfg, str(results_dir), version
 
