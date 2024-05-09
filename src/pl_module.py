@@ -6,6 +6,7 @@ from src.backbones.build import build_backbone
 from src.headers import (
     ArcFaceHeader,
     ArcMarginHeader,
+    CombinedMarginHeader,
     CosFaceHeader,
     LinearHeader,
     MagFaceHeader,
@@ -32,9 +33,17 @@ class FembModule(pl.LightningModule):
             pretrained=pretrained_bb,
         )
         if header == "arcface":
-            self.header = ArcFaceHeader(
+            # self.header = ArcFaceHeader(
+            #     in_features=embed_dim,
+            #     out_features=n_classes,
+            # )
+            self.header = CombinedMarginHeader(
                 in_features=embed_dim,
                 out_features=n_classes,
+                s=64.0,
+                m1=1.0,
+                m2=0.5,
+                m3=0.0,
             )
         else:
             raise NotImplementedError()
