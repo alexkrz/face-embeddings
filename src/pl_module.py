@@ -3,15 +3,7 @@ import torch
 import torch.nn as nn
 
 from src.backbones.build import build_backbone
-from src.headers import (
-    ArcFaceHeader,
-    ArcMarginHeader,
-    CombinedMarginHeader,
-    CosFaceHeader,
-    LinearHeader,
-    MagFaceHeader,
-    SphereFaceHeader,
-)
+from src.headers.arcmargin_orig import ArcFaceHeader, CosFaceHeader, SphereFaceHeader
 
 
 class FembModule(pl.LightningModule):
@@ -33,17 +25,19 @@ class FembModule(pl.LightningModule):
             pretrained=pretrained_bb,
         )
         if header == "arcface":
-            # self.header = ArcFaceHeader(
-            #     in_features=embed_dim,
-            #     out_features=n_classes,
-            # )
-            self.header = CombinedMarginHeader(
+            self.header = ArcFaceHeader(
                 in_features=embed_dim,
                 out_features=n_classes,
-                s=64.0,
-                m1=1.0,
-                m2=0.5,
-                m3=0.0,
+            )
+        elif header == "cosface":
+            self.header = CosFaceHeader(
+                in_features=embed_dim,
+                out_features=n_classes,
+            )
+        elif header == "sphereface":
+            self.header = SphereFaceHeader(
+                in_features=embed_dim,
+                out_features=n_classes,
             )
         else:
             raise NotImplementedError()

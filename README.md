@@ -70,4 +70,5 @@ Checkpoints for MagFace can be downloaded at: [MagFace Repository](https://githu
 
 - [x] Load ArcFace checkpoint from official Arcface repository
 - [ ] Train own ArcFace model and save it compatible to official Arface checkpoint
+- [ ] Compare MagFace training to official Magface code
 - [ ] Add ElasticFace header

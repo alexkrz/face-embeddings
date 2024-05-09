@@ -56,7 +56,15 @@ class CombinedMarginLoss(torch.nn.Module):
 
 
 class CombinedMarginHeader(CombinedMarginLoss):
-    def __init__(self, in_features, out_features, s, m1, m2, m3):
+    def __init__(
+        self,
+        in_features: int,
+        out_features: int,
+        s: float = 1.0,
+        m1: float = 1.0,
+        m2: float = 0.0,
+        m3: float = 0.0,
+    ):
         super().__init__(s=s, m1=m1, m2=m2, m3=m3)
 
         self.linear = torch.nn.Linear(
@@ -71,3 +79,50 @@ class CombinedMarginHeader(CombinedMarginLoss):
         logits = self.linear(norm_embeddings)
         loss = super().forward(logits, labels)
         return loss
+
+
+class ArcFaceHeader(CombinedMarginHeader):
+    """
+    ArcFaceHeader class
+    Reference: https://ieeexplore.ieee.org/document/8953658 (CVPR, 2019)
+    """
+
+    def __init__(self, in_features, out_features, s=64.0, m=0.5):
+        super().__init__(in_features=in_features, out_features=out_features, s=s, m2=m)
+
+
+class CosFaceHeader(CombinedMarginHeader):
+    """
+    CosFaceHeader class
+    Reference: https://ieeexplore.ieee.org/document/8578650 (CVPR, 2018)
+    """
+
+    def __init__(self, in_features, out_features, s=1, m=0.35):
+        super().__init__(in_features=in_features, out_features=out_features, s=s, m3=m)
+
+
+class SphereFaceHeader(CombinedMarginHeader):
+    """
+    SphereFaceHeader class
+    Reference: https://ieeexplore.ieee.org/document/8100196 (CVPR, 2017)
+    """
+
+    def __init__(self, in_features, out_features, m=4):
+        super().__init__(in_features=in_features, out_features=out_features, s=1, m1=m)
+
+
+class LinearHeader(torch.nn.Module):
+    """LinearHeader class."""
+
+    def __init__(self, in_features, out_features):
+        super().__init__()
+
+        self.in_features = in_features
+        self.out_features = out_features
+
+        self.linear = torch.nn.Linear(
+            in_features=in_features, out_features=out_features, bias=False
+        )
+
+    def forward(self, input, label):
+        return self.linear(input)
