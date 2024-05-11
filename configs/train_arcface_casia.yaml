@@ -1,10 +1,10 @@
 seed: 42
 results_dir: ${oc.env:EXPERIMENT_DIR}/femb
-method_name: femb_arcface
+method_name: femb_casia
 datamodule:
   class_path: src.datamodule.MXFaceDatamodule
   init_args:
-    root_dir: ${oc.env:DATASET_DIR}/FIQA-Datasets/TrainDatasets/ms1mv3
+    root_dir: ${oc.env:DATASET_DIR}/FIQA-Datasets/TrainDatasets/casia_webface
     batch_size: 128
     num_workers: 8
 pl_module:
@@ -14,14 +14,15 @@ pl_module:
     embed_dim: 512
     pretrained_bb: false
     header: arcface
-    n_classes: 93431
+    n_classes: 10572
     lr: 0.02
     weight_decay: 0.0005
 trainer:
   class_path: Trainer
   init_args:
     accelerator: gpu
-    devices: 1
+    devices:
+      - 6
     strategy: null
     precision: 16
     num_sanity_val_steps: 0

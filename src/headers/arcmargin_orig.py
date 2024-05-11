@@ -67,16 +67,14 @@ class CombinedMarginHeader(CombinedMarginLoss):
     ):
         super().__init__(s=s, m1=m1, m2=m2, m3=m3)
 
-        self.linear = torch.nn.Linear(
-            in_features=in_features, out_features=out_features, bias=False
-        )
+        self.weight = torch.nn.Parameter(torch.FloatTensor(out_features, in_features))
+        torch.nn.init.xavier_uniform_(self.weight)
         self.epsilon = 1e-6
 
     def forward(self, embeddings, labels):
-        self.linear.weight = torch.nn.Parameter(F.normalize(self.linear.weight))
-        norm_embeddings = F.normalize(embeddings).clamp(-1 + self.epsilon, 1 - self.epsilon)
+        logits = F.linear(F.normalize(embeddings), F.normalize(self.weight), bias=None)
+        logits = logits.clamp(-1 + self.epsilon, 1 - self.epsilon)
 
-        logits = self.linear(norm_embeddings)
         loss = super().forward(logits, labels)
         return loss
 
