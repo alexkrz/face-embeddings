@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 
 from src.backbones.build import build_backbone
-from src.headers.arcmargin_femb import ArcFaceHeader, CosFaceHeader, SphereFaceHeader
+from src.headers.arcmargin_femb import ArcFaceHeader, LinearHeader
 
 
 class FembModule(pl.LightningModule):
@@ -29,13 +29,8 @@ class FembModule(pl.LightningModule):
                 in_features=embed_dim,
                 out_features=n_classes,
             )
-        elif header == "cosface":
-            self.header = CosFaceHeader(
-                in_features=embed_dim,
-                out_features=n_classes,
-            )
-        elif header == "sphereface":
-            self.header = SphereFaceHeader(
+        elif header == "linear":
+            self.header = LinearHeader(
                 in_features=embed_dim,
                 out_features=n_classes,
             )
