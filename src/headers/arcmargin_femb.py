@@ -6,7 +6,7 @@ import torch.nn.functional as F
 
 
 # Source: https://github.com/ronghuaiyang/arcface-pytorch/blob/master/models/metrics.py
-class ArcFaceHeader(nn.Module):
+class ArcMarginProduct(nn.Module):
     r"""Implement of large margin arc distance: :
     Args:
         in_features: size of each input sample
@@ -55,12 +55,11 @@ class ArcFaceHeader(nn.Module):
         return output
 
 
-# Goal: We want to make the above ArcFaceHeader more general
+# Goal: We want to make the above ArcMarginProduct class more general
 class ArcMarginHeader(torch.nn.Module):
     """
     ArcMarginHeader class
-    Inspired by ArcMarginProduct implementation: https://github.com/ronghuaiyang/arcface-pytorch/blob/master/models/metrics.py
-    Reference: https://ieeexplore.ieee.org/document/8953658
+    Adjusted ArcMarginProduct class from https://github.com/ronghuaiyang/arcface-pytorch/blob/master/models/metrics.py
     """
 
     def __init__(
@@ -86,58 +85,78 @@ class ArcMarginHeader(torch.nn.Module):
         torch.nn.init.xavier_uniform_(self.weight)
         self.epsilon = 1e-6
 
+    # NOTE: We deprecate the original forward pass and introduce new variable names
+    # def forward_orig(self, input, label):
+    #     # multiply normed features (input) and normed weights to obtain cosine of theta (logits)
+    #     logits = F.linear(F.normalize(input), F.normalize(self.weight), bias=None)
+    #     logits = logits.clamp(-1 + self.epsilon, 1 - self.epsilon)
+
+    #     # apply arccos to get theta
+    #     # NOTE: Looks like the mistake is here, acos is not supposed to be clamped as it can be between 0 and pi
+    #     # theta = torch.acos(logits).clamp(-1, 1)
+    #     theta = torch.acos(logits)
+
+    #     # add angular margin (m) to theta and transform back by cos
+    #     target_logits = torch.cos(self.m1 * theta + self.m2) - self.m3
+
+    #     # derive one-hot encoding for label
+    #     one_hot = torch.zeros(logits.size(), device=input.device)
+    #     one_hot.scatter_(1, label.view(-1, 1).long(), 1.0)
+
+    #     # build the output logits
+    #     output = one_hot * target_logits + (1.0 - one_hot) * logits
+    #     # feature re-scaling
+    #     output *= self.s
+
+    #     return output
+
     def forward(self, input, label):
-        # TODO: Something is still not right compared to the official implementation
-        # multiply normed features (input) and normed weights to obtain cosine of theta (logits)
-        logits = F.linear(F.normalize(input), F.normalize(self.weight), bias=None)
-        logits = logits.clamp(-1 + self.epsilon, 1 - self.epsilon)
+        # Cosine similarity between normalized input and normalized weight
+        cos_theta = F.linear(F.normalize(input), F.normalize(self.weight), bias=None)
 
-        # apply arccos to get theta
-        theta = torch.acos(logits).clamp(-1, 1)
+        # Get the angle (theta) between input and weight vectors
+        theta = torch.acos(torch.clamp(cos_theta, -1.0 + self.epsilon, 1.0 - self.epsilon))
 
-        # add angular margin (m) to theta and transform back by cos
-        target_logits = torch.cos(self.m1 * theta + self.m2) - self.m3
+        # Apply the angular margin penalty
+        cos_theta_m = torch.cos(self.m1 * theta + self.m2) - self.m3
 
-        # derive one-hot encoding for label
-        one_hot = torch.zeros(logits.size(), device=input.device)
-        one_hot.scatter_(1, label.view(-1, 1).long(), 1.0)
-
-        # build the output logits
-        output = one_hot * target_logits + (1.0 - one_hot) * logits
-        # feature re-scaling
-        output *= self.s
+        # One-hot encode labels for the corresponding class weight
+        one_hot = torch.zeros_like(cos_theta)
+        one_hot.scatter_(1, label.view(-1, 1).long(), 1)
+        output = one_hot * cos_theta_m + (1 - one_hot) * cos_theta
+        output *= self.s  # Scale the output
 
         return output
 
 
-# class ArcFaceHeader(ArcMarginHeader):
-#     """
-#     ArcFaceHeader class
-#     Reference: https://ieeexplore.ieee.org/document/8953658 (CVPR, 2019)
-#     """
+class ArcFaceHeader(ArcMarginHeader):
+    """
+    ArcFaceHeader class
+    Reference: https://ieeexplore.ieee.org/document/8953658 (CVPR, 2019)
+    """
 
-#     def __init__(self, in_features, out_features, s=64.0, m=0.5):
-#         super().__init__(in_features=in_features, out_features=out_features, s=s, m2=m)
-
-
-# class CosFaceHeader(ArcMarginHeader):
-#     """
-#     CosFaceHeader class
-#     Reference: https://ieeexplore.ieee.org/document/8578650 (CVPR, 2018)
-#     """
-
-#     def __init__(self, in_features, out_features, s=1, m=0.35):
-#         super().__init__(in_features=in_features, out_features=out_features, s=s, m3=m)
+    def __init__(self, in_features, out_features, s=64.0, m=0.5):
+        super().__init__(in_features=in_features, out_features=out_features, s=s, m2=m)
 
 
-# class SphereFaceHeader(ArcMarginHeader):
-#     """
-#     SphereFaceHeader class
-#     Reference: https://ieeexplore.ieee.org/document/8100196 (CVPR, 2017)
-#     """
+class CosFaceHeader(ArcMarginHeader):
+    """
+    CosFaceHeader class
+    Reference: https://ieeexplore.ieee.org/document/8578650 (CVPR, 2018)
+    """
 
-#     def __init__(self, in_features, out_features, m=4):
-#         super().__init__(in_features=in_features, out_features=out_features, s=1, m1=m)
+    def __init__(self, in_features, out_features, s=1, m=0.35):
+        super().__init__(in_features=in_features, out_features=out_features, s=s, m3=m)
+
+
+class SphereFaceHeader(ArcMarginHeader):
+    """
+    SphereFaceHeader class
+    Reference: https://ieeexplore.ieee.org/document/8100196 (CVPR, 2017)
+    """
+
+    def __init__(self, in_features, out_features, m=4):
+        super().__init__(in_features=in_features, out_features=out_features, s=1, m1=m)
 
 
 class LinearHeader(torch.nn.Module):

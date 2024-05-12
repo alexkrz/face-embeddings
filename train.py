@@ -70,6 +70,7 @@ def main(
     pl_module = pl_module
 
     # 3. Configure loggers
+    print(f"Log directory is {results_dir}/version_{version}")
     tensorboard_logger = TensorBoardLogger(results_dir, name=None, version=version, sub_dir="logs")
     csv_logger = CSVLogger(results_dir, name=None, version=version)
     logger = [tensorboard_logger, csv_logger]
