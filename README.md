@@ -70,6 +70,5 @@ Checkpoints for MagFace can be downloaded at: [MagFace Repository](https://githu
 
 - [x] Load ArcFace checkpoint from official Arcface repository
 - [ ] Train own ArcFace model and save it compatible to official Arcface checkpoint
-- [ ] Find out what is going wrong in the ArcMarginHeader class in `arcmargin_femb.py`
 - [ ] Compare MagFace training to official Magface code
 - [ ] Add ElasticFace header
