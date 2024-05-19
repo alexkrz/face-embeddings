@@ -113,9 +113,10 @@ class ArcMarginHeader(torch.nn.Module):
     def forward(self, input, label):
         # Cosine similarity between normalized input and normalized weight
         cos_theta = F.linear(F.normalize(input), F.normalize(self.weight), bias=None)
+        cos_theta = cos_theta.clamp(-1.0 + self.epsilon, 1.0 - self.epsilon)
 
         # Get the angle (theta) between input and weight vectors
-        theta = torch.acos(torch.clamp(cos_theta, -1.0 + self.epsilon, 1.0 - self.epsilon))
+        theta = torch.acos(cos_theta)
 
         # Apply the angular margin penalty
         cos_theta_m = torch.cos(self.m1 * theta + self.m2) - self.m3
