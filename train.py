@@ -32,19 +32,26 @@ def process_parser_args(
     if not results_dir.exists():
         results_dir.mkdir()
     if cfg.version is None:
-        version = find_max_version(results_dir) + 1
+        max_version = find_max_version(results_dir) + 1
     else:
         version = cfg.version
-    cfg["version"] = version
-    version_dir = results_dir / f"version_{version}"
 
     # Setup for distributed training
     local_rank = int(os.environ["LOCAL_RANK"]) if "LOCAL_RANK" in os.environ else 0
     print(f"local_rank is: {local_rank}")
     if local_rank == 0:
+        if cfg.version is None:
+            version = max_version
+            cfg["version"] = version
+        version_dir = results_dir / f"version_{version}"
         version_dir.mkdir(parents=False, exist_ok=False)
         # Save config to version_dir
         parser.save(cfg, version_dir / "config.yaml")
+    else:
+        if cfg.version is None:
+            version = max_version - 1
+            cfg["version"] = version
+
     # IDEA: Instead of results_dir and version one could also output results_dir with subfolder datetimefmt and version=None
     return cfg, str(results_dir), version
 

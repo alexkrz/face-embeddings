@@ -10,15 +10,19 @@ def build_backbone(backbone="iresnet50", embed_dim=512, pretrained=False):
         assert not pretrained
         return iresnet.iresnet18(num_classes=embed_dim)
 
-    if backbone == "iresnet34":
+    elif backbone == "iresnet34":
         assert not pretrained
         return iresnet.iresnet34(num_classes=embed_dim)
 
-    if backbone == "iresnet50":
+    elif backbone == "iresnet50":
         assert not pretrained
         return iresnet.iresnet50(num_classes=embed_dim)
 
-    if backbone == "alexnet":
+    elif backbone == "iresnet100":
+        assert not pretrained
+        return iresnet.iresnet100(num_classes=embed_dim)
+
+    elif backbone == "alexnet":
         backbone = torchvision.models.alexnet(pretrained=pretrained)
 
         classifier = [
@@ -34,7 +38,7 @@ def build_backbone(backbone="iresnet50", embed_dim=512, pretrained=False):
         backbone = torch.nn.Sequential(*(list(backbone.children())[:-1]) + classifier)
         return backbone
 
-    if backbone == "vgg16":
+    elif backbone == "vgg16":
         backbone = torchvision.models.vgg16(pretrained=pretrained)
 
         classifier = [
@@ -51,7 +55,7 @@ def build_backbone(backbone="iresnet50", embed_dim=512, pretrained=False):
         backbone = torch.nn.Sequential(*(list(backbone.children())[:-1]) + classifier)
         return backbone
 
-    if backbone == "mobilenet_v2":
+    elif backbone == "mobilenet_v2":
         backbone = torchvision.models.mobilenet_v2(pretrained=pretrained)
 
         classifier = [
@@ -61,6 +65,9 @@ def build_backbone(backbone="iresnet50", embed_dim=512, pretrained=False):
 
         backbone = torch.nn.Sequential(*(list(backbone.children())[:-1]) + classifier)
         return backbone
+
+    else:
+        raise RuntimeError("Unknown backend provided.")
 
 
 def count_parameters(model):
