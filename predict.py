@@ -63,11 +63,11 @@ def main(
 
     print(f"Loading model checkpoint for {model_name}..")
     model = build_backbone(backbone=backbone, embed_dim=512, pretrained=False)
-    if model_name == "arcface":
+    if "arcface" in model_name:
         state_dict = torch.load(ckpt_fp)
         # print(state_dict.keys())
         model.load_state_dict(state_dict)
-    elif model_name == "magface":
+    elif "magface" in model_name:
         ckpt = torch.load(ckpt_fp)
         state_dict = adjust_magface_dict(model, ckpt["state_dict"])
         # print(state_dict.keys())
