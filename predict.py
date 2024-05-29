@@ -5,6 +5,7 @@ from typing import Optional
 
 import numpy as np
 import torch
+import yaml
 from jsonargparse import CLI
 from torch.utils.data import DataLoader
 from tqdm import tqdm
@@ -35,12 +36,18 @@ def main(
     backbone: str = "iresnet50",
     gpu: Optional[int] = None,
 ):
-    data_dir = Path(data_dir)
-    output_dir = Path(output_dir)
+    local_vars = locals()
+    # For now we need to tell Intellisense explicitly the change of variable type with type comments
+    data_dir = Path(data_dir)  # type: Path
+    output_dir = Path(output_dir)  # type: Path
     assert data_dir.exists()
     assert output_dir.exists()
     if data_name is None:
         data_name = data_dir.name
+
+    # Save config
+    with open(output_dir / "predict_config.yaml", "w") as yaml_file:
+        yaml.dump(local_vars, yaml_file)
 
     # Assign device where code is executed
     if gpu is not None:

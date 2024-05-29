@@ -8,3 +8,6 @@ __pycache__/
 # Model checkpoints
 /checkpoints/*
 !/checkpoints/.gitkeep
+
+# Custom configs
+/configs/custom/*

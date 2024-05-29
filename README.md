@@ -15,21 +15,22 @@ The training datasets are provided in mxnet RecordIO file format.
 1. Install miniconda
 2. Create environment with
 
-```bash
-conda env create -n $YOUR_ENV_NAME -f environment.yml
-```
+    ```bash
+    conda env create -n femb -f environment.yml
+    ```
 
 3. Install pip requirements with
 
-```bash
-pip install -r requirements.txt
-```
+    ```bash
+    conda activate femb
+    pip install -r requirements.txt
+    ```
 
 4. Install pre-commit hooks with
 
-```bash
-pre-commit install
-```
+    ```bash
+    pre-commit install
+    ```
 
 ## Run training and inference
 
@@ -55,11 +56,11 @@ Checkpoints for MagFace can be downloaded at: [MagFace Repository](https://githu
 
 ## Model references
 
-### Backbone:
+### Backbone
 
 - IResNet: [Improved Residual Networks for Image and Video Recognition](https://ieeexplore.ieee.org/document/9412193) (ICCV, 2021)
 
-### Headers:
+### Headers
 
 - SphereFaceHeader: [SphereFace: Deep Hypersphere Embedding for Face Recognition](https://ieeexplore.ieee.org/document/8100196) (CVPR, 2017)
 - CosFaceHeader: [CosFace: Large Margin Cosine Loss for Deep Face Recognition](https://ieeexplore.ieee.org/document/8578650) (CVPR, 2018)
