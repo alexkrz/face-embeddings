@@ -34,6 +34,7 @@ def main(
     model_name: str = "arcface",
     ckpt_fp: str = "checkpoints/arcface/backbone_ms1mv3_arcface_r50_fp16.pth",
     backbone: str = "iresnet50",
+    save_config: bool = False,
     gpu: Optional[int] = None,
 ):
     local_vars = locals()
@@ -45,9 +46,9 @@ def main(
     if data_name is None:
         data_name = data_dir.name
 
-    # Save config
-    with open(output_dir / "predict_config.yaml", "w") as yaml_file:
-        yaml.dump(local_vars, yaml_file)
+    if save_config:
+        with open(output_dir / "predict_config.yaml", "w") as yaml_file:
+            yaml.dump(local_vars, yaml_file)
 
     # Assign device where code is executed
     if gpu is not None:

@@ -5,4 +5,5 @@ data_name: lfw
 model_name: arcface
 ckpt_fp: checkpoints/arcface/backbone_ms1mv3_arcface_r50_fp16.pth
 backbone: iresnet50
+save_config: false
 gpu: 7
