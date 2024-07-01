@@ -219,7 +219,7 @@ def iresnet100(progress=True, **kwargs):
 if __name__ == "__main__":
     from fvcore.nn import FlopCountAnalysis, flop_count_table
 
-    model = iresnet18(num_classes=512)
+    model = iresnet50(num_classes=512)
     input = torch.randn((64, 3, 112, 112))
 
     flops = FlopCountAnalysis(model, input)

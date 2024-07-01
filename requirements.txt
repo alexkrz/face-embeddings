@@ -8,4 +8,4 @@ pytorch-lightning==1.8.6
 tensorboard==2.11.*  # Before requiring glibc > 2.31
 matplotlib==3.8.3
 pandas==2.2.1
-fvcore==0.1.5
+fvcore==0.1.5.*
