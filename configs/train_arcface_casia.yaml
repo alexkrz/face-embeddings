@@ -1,10 +1,10 @@
 seed: 42
 results_dir: ${oc.env:EXPERIMENT_DIR}/femb
-method_name: femb_casia
+method_name: femb_arcface_casia
 datamodule:
   class_path: src.datamodule.MXFaceDatamodule
   init_args:
-    root_dir: ${oc.env:DATASET_DIR}/FIQA-Datasets/TrainDatasets/casia_webface
+    root_dir: ${oc.env:DATASET_DIR}/TrainDatasets/casia_webface
     batch_size: 128
     num_workers: 8
 pl_module:
@@ -22,7 +22,7 @@ trainer:
   init_args:
     accelerator: gpu
     devices:
-      - 6
+      - 0
     strategy: null
     precision: 16
     num_sanity_val_steps: 0

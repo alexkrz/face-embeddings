@@ -4,7 +4,7 @@ method_name: femb_arcface_ms1mv2
 datamodule:
   class_path: src.datamodule.MXFaceDatamodule
   init_args:
-    root_dir: ${oc.env:DATASET_DIR}/FIQA-Datasets/TrainDatasets/ms1mv2
+    root_dir: ${oc.env:DATASET_DIR}/TrainDatasets/ms1mv2
     batch_size: 128
     num_workers: 8
 pl_module:
@@ -22,10 +22,10 @@ trainer:
   init_args:
     accelerator: gpu
     devices:
-      - 4
-      - 5
-      - 6
-      - 7
+      - 0
+      - 1
+      - 2
+      - 3
     strategy: ddp
     precision: 16
     num_sanity_val_steps: 0
