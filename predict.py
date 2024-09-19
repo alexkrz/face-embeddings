@@ -42,7 +42,8 @@ def main(
     data_dir = Path(data_dir)  # type: Path
     output_dir = Path(output_dir)  # type: Path
     assert data_dir.exists()
-    assert output_dir.exists()
+    if not output_dir.exists():
+        output_dir.mkdir()
     if data_name is None:
         data_name = data_dir.name
 
