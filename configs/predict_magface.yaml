@@ -1,0 +1,9 @@
+data_dir: ${oc.env:DATASET_DIR}/EvalDatasets/lfw
+output_dir: results
+file_ext: .jpg
+data_name: lfw
+model_name: magface-r100
+ckpt_fp: checkpoints/magface/magface_iresnet100_MS1MV2_ddp_fp32.pth
+backbone: iresnet100
+save_config: false
+gpu: 0
