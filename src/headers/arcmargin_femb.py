@@ -125,8 +125,9 @@ class ArcMarginHeader(torch.nn.Module):
         one_hot = torch.zeros_like(cos_theta)
         one_hot.scatter_(1, label.view(-1, 1).long(), 1)
         output = one_hot * cos_theta_m + (1 - one_hot) * cos_theta
-        output *= self.s  # Scale the output
 
+        # Scale the output
+        output *= self.s
         return output
 
 

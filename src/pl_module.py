@@ -9,6 +9,7 @@ from src.headers.arcmargin_femb import (
     LinearHeader,
     SphereFaceHeader,
 )
+from src.headers.magface import MagFaceHeader
 
 
 class FembModule(pl.LightningModule):
@@ -31,6 +32,11 @@ class FembModule(pl.LightningModule):
         )
         if header == "arcface":
             self.header = ArcFaceHeader(
+                in_features=embed_dim,
+                out_features=n_classes,
+            )
+        elif header == "magface":
+            self.header = MagFaceHeader(
                 in_features=embed_dim,
                 out_features=n_classes,
             )

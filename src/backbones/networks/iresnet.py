@@ -190,7 +190,9 @@ class IResNet(nn.Module):
         x = self.dropout(x)
         x = x.view(x.size(0), -1)
         x = self.fc(x)
-        x = self.features(x)
+        if x.shape[0] > 1:
+            # Apply batch normalization only if batch_size > 1
+            x = self.features(x)
 
         return x
 
