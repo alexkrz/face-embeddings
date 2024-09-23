@@ -31,10 +31,11 @@ class MagFaceHeader(ArcFaceHeader):
     def forward(self, input, label):
         # multiply normed features (input) and normed weights to obtain cosine of theta (logits)
 
-        ######## Replace this part as in ArcFaceHeader
+        ########
+        #  Replace this part as in ArcFaceHeader
         # self.linear.weight = torch.nn.Parameter(self.normalize(self.linear.weight))
         # logits = self.linear(self.normalize(input)).clamp(-1 + self.epsilon, 1 - self.epsilon)
-        #######
+        ########
 
         cos_theta = F.linear(F.normalize(input), F.normalize(self.weight), bias=None)
         cos_theta = cos_theta.clamp(-1.0 + self.epsilon, 1.0 - self.epsilon)
@@ -50,13 +51,11 @@ class MagFaceHeader(ArcFaceHeader):
         # add angular margin (m) to theta and transform back by cos
         target_logits = torch.cos(theta + m)
 
-        # derive one-hot encoding for label
+        # One-hot encode labels for the corresponding class weight
         one_hot = torch.zeros_like(cos_theta)
         one_hot.scatter_(1, label.view(-1, 1).long(), 1)
+        output = one_hot * target_logits + (1 - one_hot) * cos_theta
 
-        # build the output logits
-        output = one_hot * target_logits + (1.0 - one_hot) * cos_theta
-        # feature re-scaling
+        # Scale the output
         output *= self.s
-
         return output + self.lambda_g * g
