@@ -40,7 +40,7 @@ class MagFaceHeader(ArcFaceHeader):
         cos_theta = F.linear(F.normalize(input), F.normalize(self.weight), bias=None)
         cos_theta = cos_theta.clamp(-1.0 + self.epsilon, 1.0 - self.epsilon)
 
-        # difference compared to arcface
+        # Difference compared to Arcface, here we create a magnitude-aware margin
         a = torch.norm(input, dim=1, keepdim=True).clamp(self.l_a, self.u_a)
         m = self.compute_m(a)
         g = self.compute_g(a)
