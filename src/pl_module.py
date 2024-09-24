@@ -1,6 +1,5 @@
 import pytorch_lightning as pl
 import torch
-import torch.nn as nn
 
 from src.backbones.build import build_backbone
 from src.headers.arcmargin_femb import (
@@ -9,7 +8,18 @@ from src.headers.arcmargin_femb import (
     LinearHeader,
     SphereFaceHeader,
 )
+from src.headers.elasticface import ArcFace, ElasticArcFace
 from src.headers.magface import MagFaceHeader
+
+header_dict = {
+    "arcface": ArcFaceHeader,
+    "arcface-fadi": ArcFace,
+    "cosface": CosFaceHeader,
+    "elasticface": ElasticArcFace,
+    "linear": LinearHeader,
+    "magface": MagFaceHeader,
+    "sphereface": SphereFaceHeader,
+}
 
 
 class FembModule(pl.LightningModule):
@@ -30,33 +40,8 @@ class FembModule(pl.LightningModule):
             embed_dim=embed_dim,
             pretrained=pretrained_bb,
         )
-        if header == "arcface":
-            self.header = ArcFaceHeader(
-                in_features=embed_dim,
-                out_features=n_classes,
-            )
-        elif header == "magface":
-            self.header = MagFaceHeader(
-                in_features=embed_dim,
-                out_features=n_classes,
-            )
-        elif header == "cosface":
-            self.header = CosFaceHeader(
-                in_features=embed_dim,
-                out_features=n_classes,
-            )
-        elif header == "sphereface":
-            self.header = SphereFaceHeader(
-                in_features=embed_dim,
-                out_features=n_classes,
-            )
-        elif header == "linear":
-            self.header = LinearHeader(
-                in_features=embed_dim,
-                out_features=n_classes,
-            )
-        else:
-            raise NotImplementedError()
+        assert header in header_dict.keys()
+        self.header = header_dict[header](embed_dim, n_classes)
 
         self.criterion = torch.nn.CrossEntropyLoss()
 
