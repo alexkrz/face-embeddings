@@ -73,3 +73,4 @@ Checkpoints for MagFace can be downloaded at: [MagFace Repository](https://githu
 - [x] Train own ArcFace model and save it compatible to official Arcface checkpoint
 - [x] Add ElasticFace header
 - [ ] Compare MagFace training to official Magface code
+- [ ] Remove `mxnet`dependency. Therefore it is necessary to convert the datasets.
