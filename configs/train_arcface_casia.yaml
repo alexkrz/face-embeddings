@@ -2,7 +2,7 @@ seed: 42
 results_dir: ${oc.env:EXPERIMENT_DIR}/femb
 method_name: femb_arcface_casia
 datamodule:
-  class_path: src.datamodule.MXFaceDatamodule
+  class_path: src.datamodule_mxnet.MXFaceDatamodule
   init_args:
     root_dir: ${oc.env:DATASET_DIR}/TrainDatasets/casia_webface
     batch_size: 128
