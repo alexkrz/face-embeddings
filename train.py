@@ -15,8 +15,6 @@ from pytorch_lightning.callbacks import (
 )
 from pytorch_lightning.loggers import CSVLogger, TensorBoardLogger
 
-from src.datamodule import MXFaceDatamodule
-from src.pl_module import FembModule
 from src.utils import find_max_version
 
 

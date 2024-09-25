@@ -11,7 +11,7 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 from src.backbones.build import build_backbone
-from src.datamodule import IMGFaceDataset
+from src.datamodule_fs import IMGFaceDataset
 
 
 def adjust_magface_dict(model: torch.nn.Module, state_dict: OrderedDict) -> OrderedDict:
