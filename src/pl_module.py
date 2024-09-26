@@ -52,6 +52,8 @@ class FembModule(pl.LightningModule):
     def training_step(self, batch, batch_idx):
         imgs, targets = batch
         feats = self(imgs)
+        ampl = torch.norm(feats, dim=1)
+        max_ampl = torch.max(ampl)
         logits = self.header(feats, targets)
         # logits vector describes the probability for each image to belong to one of n_classes
         loss = self.criterion(logits, targets)
@@ -60,6 +62,7 @@ class FembModule(pl.LightningModule):
             # "step": float(self.current_epoch),  # Overwrite step to plot epochs on x-axis
             "loss": loss,
             "optimizer_lr": optimizer_lr,
+            "max_ampl": max_ampl.item(),
         }
         self.log_dict(log_dict, on_step=True)
         return loss
