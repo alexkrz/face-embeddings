@@ -2,8 +2,8 @@ data_dir: ${oc.env:DATASET_DIR}/EvalDatasets/lfw
 output_dir: results
 file_ext: .jpg
 data_name: lfw
-model_name: arcface-r100
-ckpt_fp: checkpoints/arcface/backbone_ms1mv3_arcface_r100_fp16.pth
-backbone: iresnet100
+model_name: arcface-r50
+ckpt_fp: checkpoints/arcface/backbone_ms1mv3_arcface_r50_fp16.pth
+backbone: iresnet50
 save_config: false
 gpu: 0
