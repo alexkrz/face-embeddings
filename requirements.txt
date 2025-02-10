@@ -6,4 +6,5 @@ matplotlib==3.9.*
 pandas==2.2.*
 pytorch-lightning==2.4.*
 tensorboard==2.18.*
+torchinfo==1.8.*
 datasets==2.*

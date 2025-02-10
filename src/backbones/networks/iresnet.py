@@ -39,7 +39,6 @@ class IBasicBlock(nn.Module):
     def __init__(
         self, inplanes, planes, stride=1, downsample=None, groups=1, base_width=64, dilation=1
     ):
-
         super().__init__()
 
         if groups != 1 or base_width != 64:
@@ -101,8 +100,9 @@ class IResNet(nn.Module):
 
         if len(replace_stride_with_dilation) != 3:
             raise ValueError(
-                "replace_stride_with_dilation should be None "
-                "or a 3-element tuple, got {}".format(replace_stride_with_dilation)
+                "replace_stride_with_dilation should be None or a 3-element tuple, got {}".format(
+                    replace_stride_with_dilation
+                )
             )
         self.groups = groups
         self.base_width = width_per_group
@@ -219,13 +219,9 @@ def iresnet100(progress=True, **kwargs):
 
 
 if __name__ == "__main__":
-    from fvcore.nn import FlopCountAnalysis, flop_count_table
+    from torchinfo import summary
 
     model = iresnet50(num_classes=512)
     input = torch.randn((64, 3, 112, 112))
 
-    flops = FlopCountAnalysis(model, input)
-    print(flop_count_table(flops))
-
-    out = model(input)
-    print(out.shape)
+    summary(model, input_data=input)

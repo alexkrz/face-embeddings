@@ -7,6 +7,7 @@ import numpy as np
 import torch
 import yaml
 from jsonargparse import CLI
+from pytorch_lightning.callbacks import ModelSummary
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
@@ -66,11 +67,11 @@ def main(
     print(f"Loading model checkpoint for {model_name}..")
     model = build_backbone(backbone=backbone, embed_dim=512, pretrained=False)
     if "arcface" in model_name:
-        state_dict = torch.load(ckpt_fp)
+        state_dict = torch.load(ckpt_fp, weights_only=True)
         # print(state_dict.keys())
         model.load_state_dict(state_dict)
     elif "magface" in model_name:
-        ckpt = torch.load(ckpt_fp)
+        ckpt = torch.load(ckpt_fp, weights_only=True)
         state_dict = adjust_magface_dict(model, ckpt["state_dict"])
         # print(state_dict.keys())
         model.load_state_dict(state_dict)
