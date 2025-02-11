@@ -2,9 +2,9 @@ seed: 42
 results_dir: ${oc.env:EXPERIMENT_DIR}/femb
 method_name: femb_magface_casia
 datamodule:
-  class_path: src.datamodule_mxnet.MXFaceDatamodule
+  class_path: src.datamodule_hf.HFDatamodule
   init_args:
-    root_dir: ${oc.env:DATASET_DIR}/TrainDatasets/casia_webface
+    parquet_fp: ${oc.env:DATASET_DIR}/TrainDatasets/parquet-files/casia_webface.parquet
     batch_size: 128
     num_workers: 8
 pl_module:
@@ -23,8 +23,8 @@ trainer:
     accelerator: gpu
     devices:
       - 0
-    strategy: null
-    precision: 16
+    strategy: auto
+    precision: 16-true
     num_sanity_val_steps: 0
     max_epochs: 5
     log_every_n_steps: 50

@@ -53,7 +53,7 @@ class HFDatamodule(pl.LightningDataModule):
     def setup(self, stage: str):
         print(f"Generating HFDataset for stage {stage}")
         self.dataset = HFDataset(
-            root_dir=self.hparams.parquet_fp,
+            parquet_fp=Path(self.hparams.parquet_fp),
         )
 
     def train_dataloader(self):
@@ -74,6 +74,6 @@ if __name__ == "__main__":
 
     # spotlight.show(ds)
 
-    data_p = Path(os.environ["DATASET_DIR"]) / "TrainDatasets" / "parquet-files" / "ms1mv2.parquet"
+    data_p = Path(os.environ["DATASET_DIR"]) / "TrainDatasets" / "parquet-files" / "ms1mv3.parquet"
     dataset = HFDataset(data_p)
     print(dataset[0][0].shape)
