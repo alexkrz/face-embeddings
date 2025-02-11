@@ -76,9 +76,9 @@ def main(
             img1 = data[i]
             img2 = data[i + 1]
             plt.imsave(out_dir / f"{i:0{num_digits}d}{img_ext}", img1)
-            plt.imsave(out_dir / f"{i+1:0{num_digits}d}{img_ext}", img2)
+            plt.imsave(out_dir / f"{i + 1:0{num_digits}d}{img_ext}", img2)
             refs.append(f"{i:0{num_digits}d}")
-            probes.append(f"{i+1:0{num_digits}d}")
+            probes.append(f"{i + 1:0{num_digits}d}")
             mateds.append(issame_list[count])
             count += 1
         df_pair = pd.DataFrame(

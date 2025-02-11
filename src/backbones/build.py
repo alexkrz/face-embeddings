@@ -5,7 +5,6 @@ from .networks import iresnet
 
 
 def build_backbone(backbone="iresnet50", embed_dim=512, pretrained=False):
-
     if backbone == "iresnet18":
         assert not pretrained
         return iresnet.iresnet18(num_classes=embed_dim)

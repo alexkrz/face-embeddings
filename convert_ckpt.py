@@ -25,9 +25,7 @@ def main(
     if dataset_name == "casia_webface":
         dataset_name = "casia"
 
-    backbone_weights = {
-        k.replace("backbone.", ""): v for k, v in checkpoint["state_dict"].items() if k.startswith("backbone.")  # fmt: skip
-    }
+    backbone_weights = {k.replace("backbone.", ""): v for k, v in checkpoint["state_dict"].items() if k.startswith("backbone.")}  # fmt: skip
 
     out_fname = f"backbone_{dataset_name}_{header_name}_{backbone_name}.pth"
 

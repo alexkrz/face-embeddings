@@ -23,10 +23,7 @@ trainer:
     accelerator: gpu
     devices:
       - 0
-      - 1
-      - 2
-      - 3
-    strategy: ddp
+    strategy: auto
     precision: 16-true
     num_sanity_val_steps: 0
     max_epochs: 5

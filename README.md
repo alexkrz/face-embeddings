@@ -1,9 +1,8 @@
 # Face Embeddings
 
-[![python](https://img.shields.io/badge/-Python_3.10-blue?logo=python&logoColor=white)](https://www.python.org/)
-[![black](https://img.shields.io/badge/Code%20Style-Black-black.svg?labelColor=gray)](https://black.readthedocs.io/en/stable/)
-[![pytorch](https://img.shields.io/badge/PyTorch_1.13-ee4c2c?logo=pytorch&logoColor=white)](https://pytorch.org/get-started/locally/)
-[![lightning](https://img.shields.io/badge/-Lightning_1.8.6-792ee5?logo=pytorchlightning&logoColor=white)](https://pytorchlightning.ai/)
+[![python](https://img.shields.io/badge/-Python_3.11-blue?logo=python&logoColor=white)](https://www.python.org/)
+[![pytorch](https://img.shields.io/badge/PyTorch_2.4-ee4c2c?logo=pytorch&logoColor=white)](https://pytorch.org/get-started/locally/)
+[![lightning](https://img.shields.io/badge/-Lightning_2.4-792ee5?logo=pytorchlightning&logoColor=white)](https://pytorchlightning.ai/)
 
 This repository integrates and extends the code from <https://github.com/jonasgrebe/pt-femb-face-embeddings>.
 
@@ -31,6 +30,11 @@ The training datasets are provided in mxnet RecordIO file format.
     ```bash
     pre-commit install
     ```
+
+## Convert datasets
+
+To use the training datasets in the current python environment, we require the datasets in the Huggingface datasets format.
+Therefore we suggest to use the `mxnet2hf.py` script from the following repository: <https://github.com/alexkrz/dataset-container>.
 
 ## Run training and inference
 
@@ -73,4 +77,4 @@ Checkpoints for MagFace can be downloaded at: [MagFace Repository](https://githu
 - [x] Train own ArcFace model and save it compatible to official Arcface checkpoint
 - [x] Add ElasticFace header
 - [ ] Compare MagFace training to official Magface code
-- [ ] Remove `mxnet`dependency. Therefore it is necessary to convert the datasets.
+- [x] Remove `mxnet`dependency. Therefore it is necessary to convert the datasets.
