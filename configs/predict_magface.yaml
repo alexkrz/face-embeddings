@@ -6,4 +6,3 @@ model_name: magface-r50
 ckpt_fp: checkpoints/magface/magface_iresnet50_MS1MV2_ddp_fp32.pth
 backbone: iresnet50
 save_config: false
-gpu: 0

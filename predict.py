@@ -36,7 +36,6 @@ def main(
     ckpt_fp: str = "checkpoints/arcface/backbone_ms1mv3_arcface_r50_fp16.pth",
     backbone: str = "iresnet50",
     save_config: bool = False,
-    gpu: Optional[int] = None,
 ):
     local_vars = locals()
     # For now we need to tell Intellisense explicitly the change of variable type with type comments
@@ -53,11 +52,12 @@ def main(
             yaml.dump(local_vars, yaml_file)
 
     # Assign device where code is executed
-    if gpu is not None:
-        os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu)  # Only show pytorch the selected GPU
-        device = torch.device("cuda:0")
+    if torch.cuda.is_available():
+        device = torch.device("cuda")  # NVIDIA GPU
+    elif torch.backends.mps.is_available():
+        device = torch.device("mps")  # Apple Neural Engine (MPS)
     else:
-        device = torch.device("cpu")  # Use CPU
+        device = torch.device("cpu")  # Default to CPU
 
     # Construct dataset
     print(f"Generating dataset class for {data_name}..")
@@ -67,11 +67,11 @@ def main(
     print(f"Loading model checkpoint for {model_name}..")
     model = build_backbone(backbone=backbone, embed_dim=512, pretrained=False)
     if "arcface" in model_name:
-        state_dict = torch.load(ckpt_fp, weights_only=True)
+        state_dict = torch.load(ckpt_fp, map_location=torch.device("cpu"), weights_only=True)
         # print(state_dict.keys())
         model.load_state_dict(state_dict)
     elif "magface" in model_name:
-        ckpt = torch.load(ckpt_fp, weights_only=True)
+        ckpt = torch.load(ckpt_fp, map_location=torch.device("cpu"), weights_only=True)
         state_dict = adjust_magface_dict(model, ckpt["state_dict"])
         # print(state_dict.keys())
         model.load_state_dict(state_dict)
@@ -83,7 +83,7 @@ def main(
 
     filename_list = []
     feats_list = []
-    print("Computing embeddings..")
+    print(f"Computing embeddings on {device}..")
     for batch_data in tqdm(dataloader):
         imgs, filenames = batch_data
         with torch.no_grad():
