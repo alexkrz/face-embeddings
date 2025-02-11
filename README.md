@@ -31,6 +31,11 @@ The training datasets are provided in mxnet RecordIO file format.
     pre-commit install
     ```
 
+## Convert datasets
+
+To use the training datasets in the current python environment, we require the datasets in the Huggingface datasets format.
+Therefore we suggest to use the `mxnet2hf.py` script from the following repository: <https://github.com/alexkrz/dataset-container>.
+
 ## Run training and inference
 
 We provide a train script and a predict script that can be executed with a matching config file.
@@ -72,4 +77,4 @@ Checkpoints for MagFace can be downloaded at: [MagFace Repository](https://githu
 - [x] Train own ArcFace model and save it compatible to official Arcface checkpoint
 - [x] Add ElasticFace header
 - [ ] Compare MagFace training to official Magface code
-- [ ] Remove `mxnet`dependency. Therefore it is necessary to convert the datasets.
+- [x] Remove `mxnet`dependency. Therefore it is necessary to convert the datasets.
