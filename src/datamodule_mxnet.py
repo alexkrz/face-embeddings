@@ -78,7 +78,7 @@ class MXFaceDatamodule(pl.LightningDataModule):
         self.save_hyperparameters()
 
     def setup(self, stage: str):
-        print("Generating MXFaceDataset..")
+        print(f"Generating MXFaceDataset for stage {stage}")
         self.dataset = MXFaceDataset(
             root_dir=self.hparams.root_dir,
         )
