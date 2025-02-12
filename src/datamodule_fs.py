@@ -41,7 +41,7 @@ class IMGFaceDataset(Dataset):
         img = Image.open(file_p)
         # Check image shape and use resize transform if necessary
         if not img.size == self.img_shape:
-            print("Rezising image")
+            # print("Rezising image")
             img = self.resize_transform(img)
         # Apply additional transforms
         if self.transform:
