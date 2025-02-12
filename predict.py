@@ -62,6 +62,7 @@ def main(
     # Construct dataset
     print(f"Generating dataset class for {data_name}..")
     dataset = IMGFaceDataset(data_dir, file_ext, img_shape=(112, 112))
+    print("Number of images in dataset:", len(dataset))
     dataloader = DataLoader(dataset, batch_size=64, shuffle=False, num_workers=8)
 
     print(f"Loading model checkpoint for {model_name}..")

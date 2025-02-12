@@ -1,7 +1,7 @@
-data_dir: ${oc.env:DATASET_DIR}/EvalDatasets/lfw
+data_dir: ${oc.env:DATASET_DIR}/EvalDatasets/xqlfw/xqlfw_aligned_112
 output_dir: results
 file_ext: .jpg
-data_name: lfw
+data_name: xqlfw
 model_name: magface-r50
 ckpt_fp: checkpoints/magface/magface_iresnet50_MS1MV2_ddp_fp32.pth
 backbone: iresnet50
