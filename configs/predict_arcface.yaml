@@ -1,7 +1,7 @@
-data_dir: ${oc.env:DATASET_DIR}/EvalDatasets/lfw
+data_dir: ${oc.env:DATASET_DIR}/EvalDatasets/xqlfw/xqlfw_aligned_112
 output_dir: results
 file_ext: .jpg
-data_name: lfw
+data_name: xqlfw
 model_name: arcface-r50
 ckpt_fp: checkpoints/arcface/backbone_ms1mv3_arcface_r50_fp16.pth
 backbone: iresnet50

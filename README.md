@@ -31,10 +31,13 @@ The training datasets are provided in mxnet RecordIO file format.
     pre-commit install
     ```
 
-## Convert datasets
+## Prepare datasets
 
 To use the training datasets in the current python environment, we require the datasets in the Huggingface datasets format.
 Therefore we suggest to use the `mxnet2hf.py` script from the following repository: <https://github.com/alexkrz/dataset-container>.
+
+We use the XQLFW dataset as default for evaluation.
+The `xqlfw_aligned_112.zip` file can be downloaded from here: <https://martlgap.github.io/xqlfw/pages/download.html>
 
 ## Run training and inference
 

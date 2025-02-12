@@ -29,7 +29,6 @@ class IMGFaceDataset(Dataset):
         self.root_dir = root_dir
         self.file_list = sorted(list(root_dir.rglob("*" + file_ext)))
         self.img_shape = img_shape
-        self.resize_transform = transforms.Resize(self.img_shape)
         self.transform = transform
 
     def __len__(self):
@@ -42,7 +41,9 @@ class IMGFaceDataset(Dataset):
         # Check image shape and use resize transform if necessary
         if not img.size == self.img_shape:
             # print("Rezising image")
-            img = self.resize_transform(img)
+            # tfm = transforms.Resize(self.img_shape)
+            tfm = transforms.CenterCrop(self.img_shape)
+            img = tfm(img)
         # Apply additional transforms
         if self.transform:
             img = self.transform(img)
