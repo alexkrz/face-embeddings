@@ -11,25 +11,15 @@ The training datasets are provided in mxnet RecordIO file format.
 
 ## Set up repository
 
-1. Install miniconda
-2. Create environment with
+We recommend [miniforge](https://conda-forge.org/download/) to set up your python environment.
+In case VSCode does not detect your conda environments, install [nb_conda](https://github.com/conda-forge/nb_conda-feedstock) in the base environment.
 
-    ```bash
-    conda env create -n femb -f environment.yml
-    ```
-
-3. Install pip requirements with
-
-    ```bash
-    conda activate femb
-    pip install -r requirements.txt
-    ```
-
-4. Install pre-commit hooks with
-
-    ```bash
-    pre-commit install
-    ```
+```bash
+conda env create -n $YOUR_ENV_NAME -f environment.yml
+conda activate $YOUR_ENV_NAME
+pip install -r requirements.txt
+pre-commit install
+```
 
 ## Prepare datasets
 

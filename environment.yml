@@ -2,11 +2,11 @@ channels:
   - pytorch
   - nvidia
   - conda-forge
-  - defaults
+  # - defaults  # Check license for use of defaults channel
 dependencies:
   - python=3.11.*
-  - pytorch=2.4.* # =*cuda* # Need to specifically request cuda version
-  - torchvision=0.19.*
   - ipykernel=6.29.*
+  - pytorch=2.4.* # =*cuda* # Might need to specifically request cuda version
+  - torchvision=0.19.*
   - pip>=23
   # Install pip requirements with `pip install -r requirements.txt`
