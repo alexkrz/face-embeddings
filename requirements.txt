@@ -7,5 +7,5 @@ pandas==2.2.*
 pytorch-lightning==2.4.*
 tensorboard==2.18.*
 torchinfo==1.8.*
-datasets==2.*
+datasets==3.*
 # renumics-spotlight==1.6.*  # spotlight installs many dependencies and we currently don't use it

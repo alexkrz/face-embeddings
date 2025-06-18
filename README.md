@@ -63,11 +63,12 @@ Checkpoints for MagFace can be downloaded at: [MagFace Repository](https://githu
 - CosFaceHeader: [CosFace: Large Margin Cosine Loss for Deep Face Recognition](https://ieeexplore.ieee.org/document/8578650) (CVPR, 2018)
 - ArcFaceHeader: [ArcFace: Additive Angular Margin Loss for Deep Face Recognition](https://ieeexplore.ieee.org/document/8953658) (CVPR, 2019)
 - MagFaceHeader: [MagFace: A Universal Representation for Face Recognition and Quality Assessment](https://ieeexplore.ieee.org/document/9578764) (CVPR, 2021)
+- ElasticFace: [ElasticFace: Elastic Margin Loss for Deep Face Recognition](https://ieeexplore.ieee.org/document/9857083) (CVPRW, 2022)
 
 ## Todos
 
 - [x] Load ArcFace checkpoint from official Arcface repository
 - [x] Train own ArcFace model and save it compatible to official Arcface checkpoint
 - [x] Add ElasticFace header
-- [ ] Compare MagFace training to official Magface code
 - [x] Remove `mxnet`dependency. Therefore it is necessary to convert the datasets.
+- [ ] Compare MagFace training to official Magface code
