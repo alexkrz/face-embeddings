@@ -72,3 +72,4 @@ Checkpoints for MagFace can be downloaded at: [MagFace Repository](https://githu
 - [x] Add ElasticFace header
 - [x] Remove `mxnet`dependency. Therefore it is necessary to convert the datasets.
 - [ ] Compare MagFace training to official Magface code
+- [ ] Make training runs deterministic at same seed

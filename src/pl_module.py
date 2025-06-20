@@ -58,13 +58,16 @@ class FembModule(pl.LightningModule):
         # logits vector describes the probability for each image to belong to one of n_classes
         loss = self.criterion(logits, targets)
         optimizer_lr = self.optimizers().optimizer.param_groups[0]["lr"]
-        log_dict = {
-            # "step": float(self.current_epoch),  # Overwrite step to plot epochs on x-axis
-            "loss": loss,
-            "optimizer_lr": optimizer_lr,
-            "max_ampl": max_ampl.item(),
-        }
-        self.log_dict(log_dict, on_step=True)
+        self.log("loss", loss, prog_bar=True)
+        self.log("optimizer_lr", optimizer_lr)
+        self.log("max_ampl", max_ampl.item())
+        # log_dict = {
+        #     # "step": float(self.current_epoch),  # Overwrite step to plot epochs on x-axis
+        #     "loss": loss,
+        #     "optimizer_lr": optimizer_lr,
+        #     "max_ampl": max_ampl.item(),
+        # }
+        # self.log_dict(log_dict, on_step=True)
         return loss
 
     def configure_optimizers(self):

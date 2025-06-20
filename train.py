@@ -61,8 +61,11 @@ def main(
     results_dir: str,
     version: Optional[int] = None,
 ):
-    # 1. Set fixed seed
+    # 1. Set fixed seed and flags for deterministic behavior
     pl.seed_everything(cfg.seed)
+    torch.use_deterministic_algorithms(True)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
     # 2. Assign datamodule and pl_module
     datamodule = datamodule
