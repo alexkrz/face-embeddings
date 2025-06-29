@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Callable, Iterable, Optional, Tuple
 
 import jsonargparse
+import numpy as np
 import pytorch_lightning as pl
 import torch
 import yaml
@@ -54,6 +55,20 @@ def process_parser_args(
     return cfg, str(results_dir), version
 
 
+def setup_seed(seed, cuda_deterministic=True):
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    np.random.seed(seed)
+    random.seed(seed)
+    os.environ["PYTHONHASHSEED"] = str(seed)
+    if cuda_deterministic:  # slower, more reproducible
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
+    else:  # faster, less reproducible
+        torch.backends.cudnn.deterministic = False
+        torch.backends.cudnn.benchmark = True
+
+
 def main(
     cfg: jsonargparse.Namespace,
     datamodule: LightningDataModule,
@@ -62,10 +77,7 @@ def main(
     version: Optional[int] = None,
 ):
     # 1. Set fixed seed and flags for deterministic behavior
-    pl.seed_everything(cfg.seed)
-    torch.use_deterministic_algorithms(True)
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
+    setup_seed(cfg.seed)
 
     # 2. Assign datamodule and pl_module
     datamodule = datamodule

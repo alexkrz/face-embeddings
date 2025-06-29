@@ -6,7 +6,6 @@ datamodule:
   init_args:
     parquet_fp: ${oc.env:DATASET_DIR}/TrainDatasets/parquet-files/ms1mv3.parquet
     batch_size: 128
-    num_workers: 8
 pl_module:
   class_path: src.pl_module.FembModule
   init_args:

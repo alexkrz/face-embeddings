@@ -62,6 +62,8 @@ class HFDatamodule(pl.LightningDataModule):
             batch_size=self.hparams.batch_size,
             num_workers=self.hparams.num_workers,
             shuffle=True,
+            pin_memory=True,
+            drop_last=True,
             # generator=torch.Generator().manual_seed(42),
         )
 
