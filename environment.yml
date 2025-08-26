@@ -4,7 +4,7 @@ channels:
   - conda-forge
   # - defaults  # Check license for use of defaults channel
 dependencies:
-  - python=3.11.*
+  - python=3.12.*
   - ipykernel=6.29.*
   - pytorch=2.4.* # =*cuda* # Might need to specifically request cuda version
   - torchvision=0.19.*

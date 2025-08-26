@@ -3,7 +3,7 @@ default_language_version:
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       # list of supported hooks: https://pre-commit.com/hooks.html
       - id: trailing-whitespace
@@ -19,16 +19,26 @@ repos:
 
   # Ruff formatter
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.11.6
+    rev: v0.12.10
     hooks:
       - id: ruff # This is the linter
         args:
+          - --line-length=119 # We also need to apply the line-length to the linter
           - --fix
+          - --select
+          - I # Sort imports
           - --ignore=F401 # Ignore unused imports
           - --ignore=F841 # Ignore unused variables
       - id: ruff-format # This is the formatter
         args:
-          - --line-length=99
+          - --line-length=119
+
+  # Python upgrading syntax to newer version
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.20.0
+    hooks:
+      - id: pyupgrade
+        args: [--py39-plus] # typing module has been depracated in Python 3.9
 
   # Jupyter notebook cell output clearing
   - repo: https://github.com/kynan/nbstripout
@@ -38,7 +48,7 @@ repos:
 
   # Markdown linter
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.44.0
+    rev: v0.45.0
     hooks:
       - id: markdownlint
         args:
