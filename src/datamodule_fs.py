@@ -1,12 +1,8 @@
 import os
 from pathlib import Path
-from typing import Optional, Tuple
 
-import numpy as np
-import pytorch_lightning as pl
-import torch
 from PIL import Image
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import Dataset
 from torchvision import transforms
 
 
@@ -22,8 +18,8 @@ class IMGFaceDataset(Dataset):
         self,
         root_dir: Path,
         file_ext: str = ".jpg",
-        img_shape: Tuple[int, int] = (112, 112),
-        transform: Optional[transforms.Compose] = default_transform,
+        img_shape: tuple[int, int] = (112, 112),
+        transform: transforms.Compose | None = default_transform,
     ):
         super().__init__()
         self.root_dir = root_dir

@@ -7,7 +7,6 @@ import numpy as np
 import torch
 import yaml
 from jsonargparse import CLI
-from pytorch_lightning.callbacks import ModelSummary
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
@@ -58,6 +57,7 @@ def main(
         device = torch.device("mps")  # Apple Neural Engine (MPS)
     else:
         device = torch.device("cpu")  # Default to CPU
+    print("Selected device:", device)
 
     # Construct dataset
     print(f"Generating dataset class for {data_name}..")
@@ -84,7 +84,7 @@ def main(
 
     filename_list = []
     feats_list = []
-    print(f"Computing embeddings on {device}..")
+    print("Computing embbeddings..")
     for batch_data in tqdm(dataloader):
         imgs, filenames = batch_data
         with torch.no_grad():
