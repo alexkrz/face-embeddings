@@ -1,7 +1,7 @@
 import os
 import sys
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable, List, Optional
 
 import numpy as np
 import pandas as pd
@@ -94,9 +94,7 @@ def main(
     df["mated"] = True
     df["score"] = scores
 
-    df.to_csv(
-        embed_dir / "comparison_scores.csv", float_format="%.6f", header=True, index=False, sep=";"
-    )
+    df.to_csv(embed_dir / "comparison_scores.csv", float_format="%.6f", header=True, index=False, sep=";")
 
 
 if __name__ == "__main__":

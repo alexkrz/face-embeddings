@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-from typing import List
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -10,7 +9,7 @@ def main():
     # Initialize plot
     fig, axs = plt.subplots(1, 2, figsize=(10, 5))
     axs = np.ravel(axs)  # Flatten to 1D array
-    axs: List[plt.Axes]  # Type hinting
+    axs: list[plt.Axes]  # Type hinting
 
     # Plot Arcface distribution
     embed = np.array(np.load("results/lfw_arcface-r50.npy"))

@@ -38,7 +38,7 @@ repos:
     rev: v3.20.0
     hooks:
       - id: pyupgrade
-        args: [--py39-plus] # typing module has been depracated in Python 3.9
+        args: [--py310-plus] # typing module has been made mostly obsolete with Python versions 3.9 and 3.10
 
   # Jupyter notebook cell output clearing
   - repo: https://github.com/kynan/nbstripout

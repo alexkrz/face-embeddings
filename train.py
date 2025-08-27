@@ -1,7 +1,6 @@
 import os
 import random
 from pathlib import Path
-from typing import Callable, Iterable, Optional, Tuple
 
 import jsonargparse
 import numpy as np
@@ -19,9 +18,7 @@ from pytorch_lightning.loggers import CSVLogger, TensorBoardLogger
 from src.utils import find_max_version
 
 
-def process_parser_args(
-    parser: jsonargparse.ArgumentParser,
-) -> Tuple[jsonargparse.Namespace, str, int]:
+def process_parser_args(parser: jsonargparse.ArgumentParser) -> tuple[jsonargparse.Namespace, str, int]:
     cfg = parser.parse_args()
     # Make output directories
     results_dir = Path(cfg.results_dir)
@@ -74,7 +71,7 @@ def main(
     datamodule: LightningDataModule,
     pl_module: LightningModule,
     results_dir: str,
-    version: Optional[int] = None,
+    version: int | None = None,
 ):
     # 1. Set fixed seed and flags for deterministic behavior
     setup_seed(cfg.seed)

@@ -36,9 +36,7 @@ def conv1x1(in_planes, out_planes, stride=1):
 class IBasicBlock(nn.Module):
     expansion = 1
 
-    def __init__(
-        self, inplanes, planes, stride=1, downsample=None, groups=1, base_width=64, dilation=1
-    ):
+    def __init__(self, inplanes, planes, stride=1, downsample=None, groups=1, base_width=64, dilation=1):
         super().__init__()
 
         if groups != 1 or base_width != 64:
@@ -110,15 +108,9 @@ class IResNet(nn.Module):
         self.bn1 = nn.BatchNorm2d(self.inplanes, eps=2e-05, momentum=0.9)
         self.prelu = nn.PReLU(self.inplanes)
         self.layer1 = self._make_layer(block, 64, layers[0], stride=2)
-        self.layer2 = self._make_layer(
-            block, 128, layers[1], stride=2, dilate=replace_stride_with_dilation[0]
-        )
-        self.layer3 = self._make_layer(
-            block, 256, layers[2], stride=2, dilate=replace_stride_with_dilation[1]
-        )
-        self.layer4 = self._make_layer(
-            block, 512, layers[3], stride=2, dilate=replace_stride_with_dilation[2]
-        )
+        self.layer2 = self._make_layer(block, 128, layers[1], stride=2, dilate=replace_stride_with_dilation[0])
+        self.layer3 = self._make_layer(block, 256, layers[2], stride=2, dilate=replace_stride_with_dilation[1])
+        self.layer4 = self._make_layer(block, 512, layers[3], stride=2, dilate=replace_stride_with_dilation[2])
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
 
         self.bn2 = nn.BatchNorm2d(512 * block.expansion, eps=2e-05, momentum=0.9)
