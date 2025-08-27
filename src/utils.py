@@ -1,10 +1,9 @@
 from pathlib import Path
-from typing import Tuple, Union
 
 import numpy as np
 
 
-def find_max_version(path: Union[Path, str]):
+def find_max_version(path: Path | str):
     path = Path(path)
 
     version_dirs = list(path.glob("version_*"))

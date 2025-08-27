@@ -1,7 +1,6 @@
 import os
 from collections import OrderedDict
 from pathlib import Path
-from typing import Optional
 
 import numpy as np
 import torch
@@ -30,7 +29,7 @@ def main(
     data_dir: str,
     output_dir: str,
     file_ext: str = ".jpg",
-    data_name: Optional[str] = None,
+    data_name: str | None = None,
     model_name: str = "arcface",
     ckpt_fp: str = "checkpoints/arcface/backbone_ms1mv3_arcface_r50_fp16.pth",
     backbone: str = "iresnet50",

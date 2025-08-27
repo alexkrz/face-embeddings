@@ -1,7 +1,7 @@
 import os
 import sys
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable, List, Optional
 
 import numpy as np
 import pandas as pd

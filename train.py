@@ -1,7 +1,6 @@
 import os
 import random
 from pathlib import Path
-from typing import Optional
 
 import jsonargparse
 import numpy as np
@@ -72,7 +71,7 @@ def main(
     datamodule: LightningDataModule,
     pl_module: LightningModule,
     results_dir: str,
-    version: Optional[int] = None,
+    version: int | None = None,
 ):
     # 1. Set fixed seed and flags for deterministic behavior
     setup_seed(cfg.seed)

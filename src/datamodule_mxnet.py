@@ -1,7 +1,6 @@
 import numbers
 import os
 from pathlib import Path
-from typing import Optional, Tuple
 
 import mxnet as mx
 import numpy as np
@@ -26,7 +25,7 @@ class MXFaceDataset(Dataset):
         self,
         root_dir: str,
         transform: transforms.Compose = default_transform,
-        custom_targets: Optional[np.ndarray] = None,
+        custom_targets: np.ndarray | None = None,
     ):
         super().__init__()
         self.transform = transform

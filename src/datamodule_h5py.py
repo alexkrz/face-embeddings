@@ -1,7 +1,6 @@
 import io
 import os
 from pathlib import Path
-from typing import Optional
 
 import h5py
 import numpy as np
@@ -44,7 +43,7 @@ class H5FaceDataset(Dataset):
         root_dir: str,
         filename: str,
         transform: transforms.Compose = default_transform,
-        custom_targets: Optional[np.ndarray] = None,
+        custom_targets: np.ndarray | None = None,
     ):
         super().__init__()
         self.transform = transform
