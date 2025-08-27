@@ -94,9 +94,7 @@ def main(
     df["mated"] = True
     df["score"] = scores
 
-    df.to_csv(
-        embed_dir / "comparison_scores.csv", float_format="%.6f", header=True, index=False, sep=";"
-    )
+    df.to_csv(embed_dir / "comparison_scores.csv", float_format="%.6f", header=True, index=False, sep=";")
 
 
 if __name__ == "__main__":

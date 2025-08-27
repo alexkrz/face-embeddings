@@ -3,7 +3,6 @@ import pickle
 import shutil
 import zipfile
 from pathlib import Path
-from typing import Tuple
 
 import matplotlib.pyplot as plt
 import mxnet as mx
@@ -13,7 +12,7 @@ from jsonargparse import CLI
 from tqdm import tqdm
 
 
-def load_bin(path: str, image_size: Tuple[int, int] = (112, 112)):
+def load_bin(path: str, image_size: tuple[int, int] = (112, 112)):
     with open(path, "rb") as f:
         bins, issame_list = pickle.load(f, encoding="bytes")
 

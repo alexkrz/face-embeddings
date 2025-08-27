@@ -32,7 +32,7 @@ def create_dict(list: list, array: np.ndarray) -> dict:
     return result_dict
 
 
-def process_names(names: list) -> Tuple[np.ndarray, np.ndarray]:
+def process_names(names: list) -> tuple[np.ndarray, np.ndarray]:
     names = np.array(names)
     # Filename has structure parent_dir / person_id / sample_id .{file_ext}
     # Split each filename at the "/" string and expand dimensions

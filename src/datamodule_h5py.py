@@ -1,7 +1,7 @@
 import io
 import os
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import Optional
 
 import h5py
 import numpy as np
@@ -62,7 +62,7 @@ class H5FaceDataset(Dataset):
     def __len__(self):
         return len(self.data)
 
-    def __getitem__(self, idx: int) -> Tuple[torch.Tensor, torch.Tensor]:
+    def __getitem__(self, idx: int) -> tuple[torch.Tensor, torch.Tensor]:
         hf_data = np.array(self.h5file[self.data[idx]])
         label = int(self.data[idx].split("/")[0])
         label = torch.tensor(label, dtype=torch.long)

@@ -118,9 +118,7 @@ class LinearHeader(torch.nn.Module):
         self.in_features = in_features
         self.out_features = out_features
 
-        self.linear = torch.nn.Linear(
-            in_features=in_features, out_features=out_features, bias=False
-        )
+        self.linear = torch.nn.Linear(in_features=in_features, out_features=out_features, bias=False)
 
     def forward(self, input, label):
         return self.linear(input)
