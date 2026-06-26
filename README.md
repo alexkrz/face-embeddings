@@ -1,23 +1,19 @@
 # Face Embeddings
 
-[![python](https://img.shields.io/badge/-Python_3.12-blue?logo=python&logoColor=white)](https://www.python.org/)
-[![pytorch](https://img.shields.io/badge/PyTorch_2.4-ee4c2c?logo=pytorch&logoColor=white)](https://pytorch.org/get-started/locally/)
-[![lightning](https://img.shields.io/badge/-Lightning_2.4-792ee5?logo=pytorchlightning&logoColor=white)](https://pytorchlightning.ai/)
-
 This repository integrates and extends the code from <https://github.com/jonasgrebe/pt-femb-face-embeddings>.
 
 The datasets for training can be downloaded from the [Insightface Datasets Github Page](https://github.com/deepinsight/insightface/tree/master/recognition/_datasets_).
 The training datasets are provided in mxnet RecordIO file format.
 
-## Set up repository
+## Setup
 
-We recommend [miniforge](https://conda-forge.org/download/) to set up your python environment.
-In case VSCode does not detect your conda environments, install [nb_conda](https://github.com/conda-forge/nb_conda-feedstock) in the base environment.
+We recommend [miniforge](https://conda-forge.org/download/) to set up your python environment. \
+Then [uv](https://docs.astral.sh/uv/) can be used to install the project dependencies:
 
 ```bash
-conda env create -n $YOUR_ENV_NAME -f environment.yml
+conda create -n $YOUR_ENV_NAME python=3.12
 conda activate $YOUR_ENV_NAME
-pip install -r requirements.txt
+uv pip install -r requirements.txt
 pre-commit install
 ```
 
