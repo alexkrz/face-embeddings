@@ -9,50 +9,49 @@ repos:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-docstring-first
+      # - id: check-json  # Causing errors with VSCode settings
       - id: check-yaml
+      - id: check-toml
       - id: debug-statements
       - id: detect-private-key
       - id: check-executables-have-shebangs
-      - id: check-toml
       - id: check-case-conflict
       - id: check-added-large-files
 
-  # Ruff formatter
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.12.10
-    hooks:
-      - id: ruff # This is the linter
-        args:
-          - --line-length=119 # We also need to apply the line-length to the linter
-          - --fix
-          - --select
-          - I # Sort imports
-          - --ignore=F401 # Ignore unused imports
-          - --ignore=F841 # Ignore unused variables
-      - id: ruff-format # This is the formatter
-        args:
-          - --line-length=119
-
-  # Python upgrading syntax to newer version
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.20.0
-    hooks:
-      - id: pyupgrade
-        args: [--py310-plus] # typing module has been made mostly obsolete with Python versions 3.9 and 3.10
-
-  # Jupyter notebook cell output clearing
-  - repo: https://github.com/kynan/nbstripout
-    rev: 0.8.1
-    hooks:
-      - id: nbstripout
-
-  # Markdown linter
+  # Markdown
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.45.0
+    rev: v0.48.0
     hooks:
       - id: markdownlint
         args:
+          - --fix
           - --disable=MD013 # Line length limitation
           # - --disable=MD029 # Line numbering in ordered list
           - --disable=MD033 # No inline html
           # - --disable=MD047
+          - --disable=MD024 # Allow duplicate headings
+
+  # Ruff formatter
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.12
+    hooks:
+      - id: ruff-check # This is the linter
+        args:
+          - --line-length=119 # We also need to apply the line-length to the linter
+          - --fix
+          - --select=I # Sort imports
+          - --select=UP # Move pyupgrade into ruff
+          - --target-version=py310 # typing module has been made mostly obsolete with Python versions 3.9 and 3.10
+          - --select=E722 # No bare excepts
+          # - --select=F541 # F-Strings without any placeholders
+          # - --ignore=F401 # Unused imports
+          # - --ignore=F841 # Unused variables
+      - id: ruff-format # This is the formatter
+        args:
+          - --line-length=119
+
+  # Jupyter notebook cell output clearing
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.9.1
+    hooks:
+      - id: nbstripout
